@@ -10,19 +10,19 @@ import {setTimeout} from "timers";
 export function searchLessons(req: Request, res: Response) {
 
     const queryParams = req.query;
-
+    const courseId = queryParams.courseId
     const courseUrl = queryParams.courseUrl,
-          filter = queryParams.filter || '',
-          sortOrder = queryParams.sortOrder || 'asc',
-          pageNumber = parseInt(queryParams.pageNumber) || 0,
-          pageSize = parseInt(queryParams.pageSize) || 3;
+            filter = (queryParams.filter || '') as string,
+            sortOrder = queryParams.sortOrder || 'asc',
+            pageNumber = parseInt(queryParams.pageNumber as string) || 0,
+            pageSize = parseInt(queryParams.pageSize as string) || 3;
 
   const courses:any = Object.values(COURSES);
 
   const course = courses.find(course => course.url == courseUrl);
 
   let lessons;
-
+    if (courseId) { lessons = Object.values(LESSONS).filter(lesson => Number(lesson.courseId) === Number(courseId)).sort((l1, l2) => l1.id - l2.id); }
     if (courseUrl) {
      lessons = Object.values(LESSONS).filter(lesson => lesson.courseId == course.id).sort((l1, l2) => l1.id - l2.id);
     }

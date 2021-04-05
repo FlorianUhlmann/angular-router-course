@@ -25,6 +25,10 @@ export class CourseComponent implements OnInit {
 
     }
 
+    confirmExit(){
+      return confirm(`Are you sure you want to exit ${this.course.description}?`)
+    }
+
 
 }
 

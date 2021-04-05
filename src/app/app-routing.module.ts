@@ -4,6 +4,7 @@ import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import {CanLoadAuthGuard} from './services/can-load-auth.guard'
+import { CustomPreloadingStrategy } from './services/custom-preloading.strategy';
 
 const routes: Routes = [
   {
@@ -15,7 +16,8 @@ const routes: Routes = [
   {
     path: "courses",
     loadChildren: () => import('./courses/courses.module').then(m => m.CoursesModule),
-    canLoad: [CanLoadAuthGuard]
+    //canLoad: [CanLoadAuthGuard],
+    data:{preload:true},
   },
   {
     path: "login",
@@ -35,7 +37,9 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes,
       {
-        enableTracing: true
+        //detailed logging while routing
+        enableTracing: true,
+        preloadingStrategy: CustomPreloadingStrategy
       })
 
   ],

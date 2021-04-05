@@ -39,7 +39,18 @@ const routes: Routes = [
       {
         //detailed logging while routing
         enableTracing: true,
-        preloadingStrategy: CustomPreloadingStrategy
+        preloadingStrategy: CustomPreloadingStrategy,
+        //parameters RECOMENDED for every Angular
+        //goes to last screen position
+        scrollPositionRestoration:'enabled',
+        //stores Query params from Acess routes
+        paramsInheritanceStrategy: 'always',
+        // avoid writing urls when dealing wth empty path components
+        relativeLinkResolution: 'corrected',
+        //unknonw charakter in url -> send to notFound.Component
+        malformedUriErrorHandler:
+        (error: URIError, UrlSerializer: UrlSerializer, url:string)=>
+          UrlSerializer.parse("page-not-found")
       })
 
   ],
